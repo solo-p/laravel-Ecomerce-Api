@@ -3,10 +3,17 @@
 namespace App\Exceptions;
 
 use Exception;
+use Illuminate\Database\Eloquent\Model;
+
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Illuminate\Support\Facades\Response;
+use Psr\Container\NotFoundExceptionInterface;
+
 
 class Handler extends ExceptionHandler
 {
+
+    use ExceptionTrait;
     /**
      * A list of the exception types that are not reported.
      *
@@ -46,6 +53,15 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $exception)
     {
+        if ($request->expectsJson()) {
+
+           return $this->apiException($request, $exception);
+
+        }
+
+
+
+        //dd
         return parent::render($request, $exception);
     }
 }
