@@ -34,6 +34,8 @@ trait ExceptionTrait {
 
         }
 
+        return parent::render($request, $e);
+
     }
 
     protected function isModel($e)
